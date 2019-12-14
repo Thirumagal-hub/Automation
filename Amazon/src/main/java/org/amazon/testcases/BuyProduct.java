@@ -1,24 +1,29 @@
 package org.amazon.testcases;
 
-import java.util.Set;
-import java.util.concurrent.TimeUnit;
-
+import org.amazon.base.ProjectSpecificMethods;
 import org.amazon.pages.HomePage;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.Assert;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 
-public class BuyProduct 
+public class BuyProduct extends ProjectSpecificMethods
 {
 
-	@Test
-	public void verifyProduct() {
+	@BeforeTest
+	public void setData()
+	{
+		excelFileName="BuyProduct";
+	}
+	
+	//@Test(dataProvider="provideData", dataProviderClass=DataProviderClass.class)
+	
+	@Test(dataProvider="provideData")
+	public void verifyProduct(String product) {
 		new HomePage()
 		.verifyTitle()
-		.enterProductName("Samsung Galaxy M30")
+		.enterProductName(product)
 		.clickOnSearch()
-		.verifyTitle("Samsung Galaxy M30")
+		.verifyTitle(product)
 		.getDeliveryDateText()
 		.clickOnProduct()
 		.switchToNewWindow()
